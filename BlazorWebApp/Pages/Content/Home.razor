@@ -1,0 +1,75 @@
+﻿@page "/"
+
+<div class="container mt-5">
+    <div class="jumbotron bg-light p-4 rounded">
+        <h1 class="display-4">Welcome to My Advanced Banking System</h1>
+        <p class="lead">Hello, I’m Ahmed Ghaithan. As part of my ongoing studies in ASP.NET Core, I am excited to introduce the sophisticated Banking System project that I have developed. This platform is designed with meticulous attention to security and functionality, aiming to deliver an exceptional banking experience for both personal and administrative use.</p>
+
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="h4">Key Features of My Banking System</h2>
+                <p>My Banking System is built with a suite of powerful features, ensuring a seamless and secure banking experience:</p>
+                <ul>
+                    <li><strong>Comprehensive Account Management:</strong> Easily create, modify, and delete bank accounts. Manage deposits, withdrawals, and transfers with simplicity. View detailed transaction histories and account summaries with just a few clicks.</li>
+                    <li><strong>Robust Administrative Tools:</strong> Administrators have full access to manage system users, including creating and deleting user accounts, assigning roles, and adding new roles. Oversee all banking operations and ensure the system runs smoothly.</li>
+                    <li><strong>Enhanced Security:</strong> My system employs Clean Architecture for optimal code organization, JWT for secure authentication, and role-based access control to manage permissions. I also use refresh tokens for extended session management and in-memory caching to enhance performance.</li>
+                    <li><strong>Modern User Interface:</strong> Built using Blazor, the user interface is both responsive and intuitive, providing a smooth and interactive experience for managing all your banking needs.</li>
+                    <li><strong>Advanced Logging:</strong> I use <strong>Serilog</strong> for comprehensive logging, providing detailed insights into system operations and facilitating easier troubleshooting and monitoring.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2 class="h4">How to Get Started</h2>
+                <p>Getting started with my Banking System is simple. Please follow these instructions:</p>
+                <ol>
+                    <li><strong>Initial Admin Login:</strong> As an admin, log in using the email <strong>Admin@gmail.com</strong> and the password <strong>Admin@123</strong>. This will allow you to access the system and start setting it up.</li>
+                    <li><strong>Add New Users:</strong> Once logged in as an admin, navigate to the Administration section and use the "New User" option to add new users to the system.</li>
+                    <li><strong>Login with Existing Users:</strong> For existing users, simply log in using the email and password associated with their account.</li>
+                </ol>
+                <p class="lead">If you encounter any issues or have any questions, or if you notice something that seems incorrect, please do not hesitate to <a href="mailto:ghaithanahmed691@gmail.com">contact me</a>. I am committed to providing you with the support you need and addressing any concerns promptly.</p>
+                <p class="alert alert-warning mt-4">
+                    Please note that while I strive to ensure a smooth experience, there may be occasional issues with the system. I am actively working to address any problems that arise. For the latest updates and new versions of the system, please visit my GitHub repository at <a href="https://github.com/AhmedSalehGhaithan?tab=repositories" target="_blank">GitHub</a>.
+                </p>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="h4">Design Patterns Used</h2>
+                <p>My Banking System utilizes several design patterns to ensure code quality and maintainability. Here’s a detailed breakdown:</p>
+                <ul>
+                    <li><strong>Repository Pattern:</strong> Encapsulates data access logic in `BankAccountRepository`, providing methods to interact with `BankAccount` entities. This pattern abstracts the persistence layer, allowing for CRUD operations.</li>
+                    <li><strong>Unit of Work Pattern:</strong> Manages transactions and coordinates changes across objects through `BankAccountDbContext`, ensuring all changes are committed as a single unit.</li>
+                    <li><strong>Dependency Injection (DI) Pattern:</strong> Managed by the `ServiceContainer` class, this pattern resolves dependencies and promotes loose coupling by injecting services like `IBankAccount` and `IMyCacheService` into constructors.</li>
+                    <li><strong>Singleton Pattern:</strong> Ensures a single instance of `IMyCacheService` is used throughout the application, managed by the `ServiceContainer` class.</li>
+                    <li><strong>Strategy Pattern:</strong> Utilized in `IMyCacheService` and its implementations (e.g., `MyCacheService`) to allow different caching strategies without altering the client code.</li>
+                    <li><strong>Command Pattern:</strong> Encapsulates actions such as creating, updating, and deleting `BankAccount` entities as method calls within `BankAccountRepository`.</li>
+                    <li><strong>Factory Method Pattern:</strong> Used in methods like `GenerateRandomNumber` to create unique account numbers and in `AddInfrastructureService` for service configuration.</li>
+                    <li><strong>Decorator Pattern:</strong> Implemented with `LoggingDecorator` and `CachingDecorator` classes to dynamically add logging and caching responsibilities to `BankAccountRepository` objects, enhancing functionality without modifying the core code.</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="h4">Additional ASP.NET Core Projects and Practices</h2>
+                <p>In addition to my Banking System, I have also explored various topics and completed projects in ASP.NET Core. Here are some of the key areas I have worked on:</p>
+                <ul>
+                    <li><strong>Design Patterns:</strong> Implemented various design patterns to improve code maintainability and scalability. <a href="https://github.com/AhmedSalehGhaithan/Design-Pattern" target="_blank">View on GitHub</a></li>
+                    <li><strong>SOLID Principles:</strong> Applied SOLID principles to enhance object-oriented design and ensure robust, flexible code. <a href="https://github.com/AhmedSalehGhaithan/Solid-Principle" target="_blank">View on GitHub</a></li>
+                    <li><strong>Unit Testing:</strong> Developed unit tests to validate functionality and ensure code quality. <a href="https://github.com/AhmedSalehGhaithan/UnitTesting" target="_blank">View on GitHub</a></li>
+                    <li><strong>Others:</strong> Created and managed Web API, Blazor apps, Entity Framework Core, JWT Authentication, and more. <a href="https://github.com/AhmedSalehGhaithan?tab=repositories" target="_blank">View on GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+      <Footer></Footer>
+    </div>
+</div>

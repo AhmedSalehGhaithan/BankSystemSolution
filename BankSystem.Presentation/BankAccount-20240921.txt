@@ -1,0 +1,8 @@
+2024-09-21 02:52:49 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-21 02:52:49 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-21 02:52:51 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-21 02:52:51 +03:00 [INF] [INFO] Retrieved 3 transactions
+2024-09-21 03:00:15 +03:00 => [INFO] Retrieving all accounts
+2024-09-21 03:00:15 +03:00 => [INFO] Retrieved 2 accounts
+2024-09-21 03:00:18 +03:00 => [INFO] Retrieving all transactions
+2024-09-21 03:00:18 +03:00 => [INFO] Retrieved 3 transactions

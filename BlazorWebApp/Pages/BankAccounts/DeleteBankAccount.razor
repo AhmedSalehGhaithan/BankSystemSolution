@@ -1,0 +1,53 @@
+﻿@page "/bankAccounts/delete/{AccountId:int}"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize(Roles = "User,Admin")]
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0">Delete Bank Account</h2>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the account with ID <strong>@AccountId</strong>? This action cannot be undone.</p>
+                    <button class="btn btn-danger" @onclick="ConfirmDelete">Yes, Delete</button>
+                    <button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int AccountId { get; set; }
+
+    private async Task ConfirmDelete()
+    {
+        try
+        {
+            var response = await _BankAccountService.DeleteAccountAsync(AccountId);
+            if (response.Flag)
+            {
+                _navManager.NavigateTo("/bankAccounts/display/accounts");
+            }
+            else
+            {
+                Console.Error.WriteLine(response.Message);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error deleting bank account: {ex.Message}");
+        }
+    }
+
+    private async Task Cancel()
+    {
+        await JSRuntime.InvokeVoidAsync("navigateBack");
+    }
+}
+<script>
+    function navigateBack() {
+        window.history.back();
+    }
+</script>

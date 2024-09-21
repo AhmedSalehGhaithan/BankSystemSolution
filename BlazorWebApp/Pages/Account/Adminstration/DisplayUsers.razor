@@ -1,0 +1,309 @@
+﻿@page "/administration/account/identity/users"
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card border-primary shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">User Management</h3>
+                    <a class="btn btn-light btn-sm" href="/administration/account/identity/add-user">
+                        <i class="bi bi-plus"></i> Add User
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (isLoading)
+                    {
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    }
+                    else if (usersWithRoles != null && usersWithRoles.Any())
+                    {
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Search by name..."
+                                   @bind="searchQuery" @oninput="OnSearchQueryChanged"/>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>
+                                        Role
+                                        <a class="btn btn-sm btn-light ms-2" @onclick="ShowCreateRoleModal">
+                                            <i class="bi bi-plus"></i> Add Role
+                                        </a>
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (FilteredUsers.Any())
+                                {
+                                    @foreach (var user in FilteredUsers)
+                                    {
+                                        @if (user.Email != currentUser?.Email && user.Email != "Ahmed@gmail.com") // Exclude currently logged-in user
+                                        {
+                                            <tr>
+                                                <td>@user.Name</td>
+                                                <td>@user.Email</td>
+                                                <td>
+                                                    <select class="form-select" @onchange="e => UpdateUserRole(user, (string)e.Value)">
+                                                        @foreach (var role in roles)
+                                                        {
+                                                            <option value="@role.Name" selected="@(role.Name == user.RoleName)">@role.Name</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm" @onclick="() => ShowDeleteConfirmation(user.Email)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">No user accounts found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            <i class="bi bi-info-circle"></i> No user accounts available.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Role Modal -->
+@if (showCreateRoleModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Role</h5>
+                    <button type="button" class="close" @onclick="CloseCreateRoleModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="newRoleModel" OnValidSubmit="CreateRoleAsync">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="form-group mb-3">
+                            <label for="roleName">Role Name</label>
+                            <InputText id="roleName"
+                                       @bind-Value="newRoleModel.Name"
+                                       class="form-control"
+                                       placeholder="New Role Name" />
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <button class="btn btn-primary" type="submit">Create Role</button>
+                            <button type="button" class="btn btn-secondary" @onclick="CloseCreateRoleModal">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Delete Confirmation Modal -->
+@if (showDeleteConfirmationModal)
+{
+    <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="close" @onclick="CloseDeleteConfirmationModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the user with email <strong>@emailToDelete</strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseDeleteConfirmationModal">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="ConfirmDeleteUser">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="card mt-3">
+    <div class="card-body text-center text-success">
+        @message
+    </div>
+</div>
+
+@code {
+    private IEnumerable<GetUsersWithRolesResponse>? usersWithRoles;
+    private IEnumerable<GetRole>? roles;
+    private GetUsersWithRolesResponse? currentUser;
+
+    private bool isLoading = true;
+    private bool showCreateRoleModal = false;
+    private bool showDeleteConfirmationModal = false;
+    private CreateRole newRoleModel = new();
+    private string? message;
+    private string searchQuery = string.Empty;
+    private string? emailToDelete;
+
+    private IEnumerable<GetUsersWithRolesResponse> FilteredUsers =>
+        string.IsNullOrEmpty(searchQuery) ? usersWithRoles : usersWithRoles?.Where(u =>
+            u.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsersAndRolesAsync();
+        await LoadCurrentUserAsync();
+    }
+
+    private async Task LoadUsersAndRolesAsync()
+    {
+        try
+        {
+            usersWithRoles = await _accountService.GetUsersWithRolesAsync();
+            roles = await _accountService.GetRolesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false; // Set loading to false after data is fetched
+        }
+    }
+
+    private async Task LoadCurrentUserAsync()
+    {
+        var authState = await _customauth.GetAuthenticationStateAsync();
+        var userEmail = authState.User.Identity?.Name;
+
+        if (!string.IsNullOrEmpty(userEmail))
+        {
+            var users = await _accountService.GetUsersWithRolesAsync();
+            currentUser = users?.FirstOrDefault(u => u.Email == userEmail);
+        }
+    }
+
+    private async Task UpdateUserRole(GetUsersWithRolesResponse user, string newRoleName)
+    {
+        if (user.RoleName != newRoleName)
+        {
+            var result = await _accountService.ChangeUserRoleAsync(new ChangeUserRoleRequest(user.Email!, newRoleName));
+
+            if (!result.Flag)
+            {
+                Console.WriteLine($"Error updating role: {result.Message}");
+            }
+            else
+            {
+                user.RoleName = newRoleName;
+            }
+        }
+    }
+
+    private void ShowCreateRoleModal()
+    {
+        showCreateRoleModal = true;
+    }
+
+    private void CloseCreateRoleModal()
+    {
+        showCreateRoleModal = false;
+    }
+
+    private async Task CreateRoleAsync()
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(newRoleModel.Name))
+            {
+                message = "Role name is required.";
+                return;
+            }
+
+            var response = await _accountService.CreateRoleAsync(newRoleModel);
+
+            if (response.Flag)
+            {
+                message = "Role created successfully";
+                newRoleModel = new(); // Clear the form
+                showCreateRoleModal = false; // Close the modal
+                await LoadUsersAndRolesAsync(); // Refresh roles
+            }
+            else
+            {
+                message = response.Message;
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"Error: {ex.Message}";
+        }
+    }
+
+    private void OnSearchQueryChanged(ChangeEventArgs e)
+    {
+        searchQuery = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private void ShowDeleteConfirmation(string email)
+    {
+        emailToDelete = email;
+        showDeleteConfirmationModal = true;
+    }
+
+    private void CloseDeleteConfirmationModal()
+    {
+        showDeleteConfirmationModal = false;
+        emailToDelete = null; // Clear the email
+    }
+
+    private async Task ConfirmDeleteUser()
+    {
+        if (!string.IsNullOrEmpty(emailToDelete))
+        {
+            try
+            {
+                var response = await _accountService.DeleteAccountAsync(emailToDelete);
+
+                if (response.Flag)
+                {
+                    message = "User deleted successfully.";
+                    await LoadUsersAndRolesAsync(); // Refresh user list
+                }
+                else
+                {
+                    message = response.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = $"Error: {ex.Message}";
+            }
+            finally
+            {
+                CloseDeleteConfirmationModal();
+            }
+        }
+    }
+}

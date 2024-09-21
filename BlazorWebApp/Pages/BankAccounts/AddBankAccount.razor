@@ -1,0 +1,139 @@
+﻿@page "/bankAccounts/Add/{AccountId:int?}"
+
+@inject IJSRuntime JSRuntime
+@attribute [Authorize(Roles = "User,Admin")]
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-primary shadow-lg rounded">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">@Title</h2>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="bankAcc" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="form-group mb-4">
+                            <label for="fullName">Full Name</label>
+                            <InputText id="fullName"
+                                       @bind-Value="bankAcc.FullName"
+                                       class="form-control"
+                                       placeholder="Ahmed Saleh" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="phoneNumber">Phone Number</label>
+                            <InputText id="phoneNumber"
+                                       @bind-Value="bankAcc.PhoneNumber"
+                                       class="form-control"
+                                       placeholder="📞 +967 XXX-XXX-XXX" />
+                        </div>
+
+                        @if (AccountId.HasValue)
+                        {
+                            <div class="form-group mb-4">
+                                <label for="accountNumber">Account Number</label>
+                                <InputText id="accountNumber"
+                                           @bind-Value="bankAcc.AccountNumber"
+                                           class="form-control"
+                                           readonly="true" />
+                            </div>
+                        }
+
+                        <div class="form-group mb-4">
+                            <label for="balance">Balance</label>
+                            <InputNumber id="balance"
+                                         @bind-Value="bankAcc.Balance"
+                                         class="form-control"
+                                         placeholder="0.00" />
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button class="btn btn-primary btn-lg" type="submit">@ButtonText</button>
+                            <button class="btn btn-secondary btn-lg ms-2" @onclick="Cancel">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body text-center text-danger">
+            @message
+        </div>
+    </div>
+</div>
+
+<Footer />
+@code {
+    [Parameter] public int? AccountId { get; set; }
+
+    private BankAccount bankAcc = new();
+    private string message = string.Empty;
+    private string Title => AccountId.HasValue ? "Update Bank Account" : "Add New Bank Account";
+    private string ButtonText => AccountId.HasValue ? "Update Account" : "Add Account";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AccountId.HasValue)
+        {
+            bankAcc = await _BankAccountService.GetAccountByIdAsync(AccountId.Value);
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (AccountId.HasValue)
+        {
+            var response = await _BankAccountService.UpdateAccountAsync(bankAcc);
+            if (response.Flag)
+            {
+                _navManager.NavigateTo("/bankAccounts/display/accounts");
+            }
+            else
+            {
+                message = response.Message;
+            }
+        }
+        else
+        {
+            var response = await _BankAccountService.CreateAccountAsync(bankAcc);
+            if (response.Flag)
+            {
+                await JSRuntime.InvokeVoidAsync("showNotification", "Account created successfully!", "success");
+                _navManager.NavigateTo("/bankAccounts/display/accounts");
+            }
+            else
+            {
+                message = response.Message;
+            }
+        }
+    }
+
+    private async Task Cancel()
+    {
+        await JSRuntime.InvokeVoidAsync("navigateBack");
+    }
+}
+<script>
+    function navigateBack() {
+        window.history.back();
+    }
+
+    function navigateBack() {
+        window.history.back();
+    }
+
+    function showNotification(message, type) {
+        // Example of a simple alert notification
+        alert(message);
+
+        // If using a library like Toastr, you can replace the above line with:
+        // toastr[type](message);
+    }
+</script>
+

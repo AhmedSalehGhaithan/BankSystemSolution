@@ -1,0 +1,169 @@
+﻿@page "/bankAccounts/display/accounts"
+@using BlazorWebApp.Pages.Content
+@attribute [Authorize(Roles = "User,Admin")]
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Bank Accounts</h5>
+                    <button class="btn btn-light btn-sm" @onclick="NavigateToAddAccountPage">
+                        <i class="bi bi-plus"></i> Add Account
+                    </button>
+                </div>
+
+                @if (isLoading)
+                {
+                    <div class="card-body text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                }
+                else if (bankAccounts != null && bankAccounts.Any())
+                {
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Search accounts..."
+                                   @bind="searchTerm" @oninput="OnSearchTermChanged"/>
+                        </div>
+                        <table class="table table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Account Number</th>
+                                    <th>Balance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (filteredBankAccounts.Any())
+                                {
+                                    @foreach (var account in filteredBankAccounts)
+                                    {
+                                        <tr>
+                                            <td>@account.Id</td>
+                                            <td class="font-weight-bold">@account.FullName</td>
+                                            <td>@account.PhoneNumber</td>
+                                            <td>@account.AccountNumber</td>
+                                            <td class="text-success font-weight-bold">@account.Balance.ToString("C")</td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <button class="btn btn-outline-secondary btn-sm" @onclick="() => EditAccount(account)">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm" @onclick="() => DeleteAccount(account.Id)">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bi bi-list"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="transactions/deposit/@account.AccountNumber">
+                                                            <i class="bi bi-cash-stack"></i> Deposit
+                                                        </a></li>
+                                                        <li><a class="dropdown-item" href="transactions/withdraw/@account.AccountNumber">
+                                                            <i class="bi bi-arrow-down-circle"></i> Withdraw
+                                                        </a></li>
+                                                        <li><a class="dropdown-item" href="transactions/transfer/@account.AccountNumber">
+                                                            <i class="bi bi-arrow-right-circle"></i> Transfer
+                                                        </a></li>
+                                                        <li><a class="dropdown-item" href="transactions/account/@account.AccountNumber">
+                                                            <i class="bi bi-list-check"></i> View Transactions
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center">No matching records found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Showing @filteredBankAccounts.Count() accounts
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> No bank accounts available.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<Footer />
+
+@code {
+    private IEnumerable<BankAccount>? bankAccounts;
+    private IEnumerable<BankAccount> filteredBankAccounts = Enumerable.Empty<BankAccount>();
+    private bool isLoading = true;
+    private string searchTerm = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate a delay for loading data
+        await Task.Delay(500);
+
+        try
+        {
+            bankAccounts = await _BankAccountService.GetAccountsAsync();
+            filteredBankAccounts = bankAccounts; // Initialize with all accounts
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching bank accounts: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false; // Set loading to false after data is fetched or if an error occurs
+        }
+    }
+
+    private void NavigateToAddAccountPage()
+    {
+        _navManager.NavigateTo("/bankAccounts/Add");
+    }
+
+    private void EditAccount(BankAccount account)
+    {
+        _navManager.NavigateTo($"/bankAccounts/Add/{account.Id}");
+    }
+
+    private async Task DeleteAccount(int id)
+    {
+        _navManager.NavigateTo($"/bankAccounts/delete/{id}");
+    }
+
+    private void OnSearchTermChanged(ChangeEventArgs e)
+    {
+        searchTerm = e.Value?.ToString() ?? string.Empty;
+        FilterAccounts();
+    }
+
+    private void FilterAccounts()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredBankAccounts = bankAccounts ?? Enumerable.Empty<BankAccount>();
+        }
+        else
+        {
+            filteredBankAccounts = (bankAccounts ?? Enumerable.Empty<BankAccount>())
+                .Where(account =>
+                    account.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    account.PhoneNumber.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    account.AccountNumber.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+    }
+}

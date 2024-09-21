@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <div class="d-flex justify-content-around">
+                <span class="d-flex fa fa-bank fs-3" aria-hidden="true"></span>
+                <span class="d-flex p-2">Banking-System</span>
+            </div>
+        </a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                <span class="fa fa-home p-2" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        <AuthorizeView Roles="Admin,User">
+            <div class="nav-item px-3 text-light mt-3">
+                <span class="bi bi-gear fs-4 icon-fix text-light p-2" aria-hidden="true"></span> Account Management
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="bankAccounts/display/accounts" Match="NavLinkMatch.All">
+                    <span class="fa fa-user fs-5 icon-fix text-light p-2" aria-hidden="true"></span> User Accounts
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="bankAccounts/Add" Match="NavLinkMatch.All">
+                    <span class="fa fa-plus-circle fs-5 icon-fix text-light p-2" aria-hidden="true"></span> New Bank Account
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3 text-light mt-3">
+                <span class="bi bi-cash-stack fs-4 p-2 icon-small" aria-hidden="true"></span> Transactions
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="transactions" Match="NavLinkMatch.All">
+                    <span class="fa fa-list-alt fs-5 icon-fix text-light p-2" aria-hidden="true"></span> All Transactions
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="transactions/deposit" Match="NavLinkMatch.All">
+                    <span class="fa fa-dollar-sign fs-5 icon-fix text-light p-2" aria-hidden="true"></span> Deposit
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="transactions/withdraw" Match="NavLinkMatch.All">
+                    <span class="fa fa-arrow-down fs-5 icon-fix text-light p-2" aria-hidden="true"></span> Withdraw
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="transactions/transfer" Match="NavLinkMatch.All">
+                    <span class="fa fa-exchange-alt fs-5 icon-fix text-light p-2" aria-hidden="true"></span> Transfer
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="@ConstantValues.Role.Admin">
+            <div class="nav-item px-3 text-light mt-3">
+                <span class="fa fa-cogs fs-4 p-2" aria-hidden="true"></span> Administration
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="administration/account/identity/users" Match="NavLinkMatch.All">
+                    <span class="fa fa-users fs-5 icon-fix text-light p-2" aria-hidden="true"></span> System Users
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="administration/account/identity/add-user" Match="NavLinkMatch.All">
+                    <span class="fa fa-user-plus fs-5 icon-fix text-light p-2" aria-hidden="true"></span> New User
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Admin,User">
+            <Authorized >
+                <!-- Content for authorized users -->
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="account/identity/logout" Match="NavLinkMatch.All">
+                        <span class="fa fa-sign-out-alt fs-5 icon-fix text-light p-2" aria-hidden="true"></span> Logout
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <!-- Content for not authorized users -->
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="account/identity/login" Match="NavLinkMatch.All">
+                        <span class="fa fa-sign-in-alt fs-5 icon-fix text-light p-2" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

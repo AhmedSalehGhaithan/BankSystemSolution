@@ -1,0 +1,11 @@
+﻿@page "/account/identity/logout"
+
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)_customauth;
+        await customAuthStateProvider.UpdateAuthenticationState(new LocalStorage());
+
+        _navManager.NavigateTo("/", true);
+    }
+}

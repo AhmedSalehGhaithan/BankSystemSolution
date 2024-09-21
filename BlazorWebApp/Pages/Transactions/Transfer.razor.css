@@ -1,0 +1,44 @@
+﻿.border-pastel-red {
+    border-color: #f8d7da !important; /* Pastel red border */
+}
+
+.bg-pastel-red-light {
+    background-color: #fce4e4 !important; /* Light pastel red background */
+}
+
+.btn-pastel-red {
+    background-color: #f8d7da; /* Pastel red button background */
+    border-color: #f8d7da; /* Pastel red button border */
+    color: #fff; /* White text color */
+}
+
+    .btn-pastel-red:hover {
+        background-color: #f5b6b6; /* Slightly darker pastel red on hover */
+        border-color: #f5b6b6; /* Slightly darker pastel red border on hover */
+    }
+
+.form-control {
+    border-color: #f8d7da; /* Pastel red border for form controls */
+}
+/* Updated pastel red for the submit button with border */
+.btn-pastel-red {
+    background-color: #ff9a9a; /* Soft pastel red background */
+    border: 2px solid #ff7f7f; /* Slightly darker pastel red border */
+    color: #ffffff; /* White text color */
+    box-shadow: 0 4px 8px rgba(255, 127, 127, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+}
+
+    .btn-pastel-red:hover {
+        background-color: #ff7f7f; /* Slightly darker pastel red on hover */
+        border-color: #ff6b6b; /* Even darker pastel red border on hover */
+        color: #ffffff; /* White text color */
+        box-shadow: 0 4px 10px rgba(255, 127, 127, 0.3); /* Enhanced shadow on hover */
+    }
+
+    .btn-pastel-red:focus, .btn-pastel-red:active {
+        background-color: #ff7f7f; /* Consistent dark red for focus/active state */
+        border-color: #ff6b6b; /* Consistent dark red border for focus/active state */
+        color: #ffffff; /* White text color */
+        box-shadow: 0 4px 10px rgba(255, 127, 127, 0.3); /* Enhanced shadow for focus/active state */
+    }

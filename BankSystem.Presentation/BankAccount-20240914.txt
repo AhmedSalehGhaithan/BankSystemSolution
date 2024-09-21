@@ -1,0 +1,22 @@
+2024-09-14 00:05:21 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 00:05:21 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 21:31:01 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-14 21:31:01 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-14 21:31:04 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 21:31:04 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 21:31:06 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-14 21:31:06 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-14 23:38:12 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 23:38:17 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 23:38:26 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-14 23:38:26 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-14 23:38:38 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 23:38:38 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 23:39:19 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 23:39:19 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 23:39:30 +03:00 [INF] [INFO] Depositing $1000 to account number: 437359496
+2024-09-14 23:39:30 +03:00 [INF] [INFO] Deposit operation result: Amount $1000 is added to Ali Mohamed account
+2024-09-14 23:39:31 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 23:39:31 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-14 23:39:44 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-14 23:39:44 +03:00 [INF] [INFO] Retrieved 2 accounts

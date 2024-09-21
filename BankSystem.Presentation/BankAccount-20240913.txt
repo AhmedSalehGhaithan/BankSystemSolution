@@ -1,0 +1,50 @@
+2024-09-13 02:27:31 +03:00 [INF] assign User to role 13/09/2024 02:27:31 ص with user Id 67631844-c424-42ca-a0fa-fa93e0110894 
+2024-09-13 02:27:31 +03:00 [INF] assign User to role 13/09/2024 02:27:31 ص with user Id 50e91d32-8852-49a2-8780-c7377985def9 
+2024-09-13 02:28:09 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:28:09 +03:00 [INF] [INFO] Retrieved 0 accounts
+2024-09-13 02:28:11 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-13 02:28:11 +03:00 [INF] [INFO] Retrieved 0 transactions
+2024-09-13 02:28:58 +03:00 [INF] assign User to role 13/09/2024 02:28:58 ص with user Id e6919443-7bc7-4c51-bc9e-09cb8c23c01c 
+2024-09-13 02:29:19 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:29:19 +03:00 [INF] [INFO] Retrieved 0 accounts
+2024-09-13 02:29:37 +03:00 [INF] [INFO] Creating account with ID: 0 and Account Number: 
+2024-09-13 02:29:37 +03:00 [INF] [INFO] Create operation result: Account created successfully
+2024-09-13 02:29:40 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:29:40 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 02:29:44 +03:00 [INF] [INFO] Retrieving account with ID: 1
+2024-09-13 02:29:44 +03:00 [INF] [INFO] Retrieved account with ID: 1
+2024-09-13 02:29:46 +03:00 [INF] [INFO] Updating account with ID: 1 and Account Number: 437359496
+2024-09-13 02:29:46 +03:00 [INF] [INFO] Update operation result: Ali Mohamed updated successfully
+2024-09-13 02:29:47 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:29:47 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 02:29:59 +03:00 [INF] [INFO] Depositing $100000 to account number: 437359496
+2024-09-13 02:29:59 +03:00 [INF] [INFO] Deposit operation result: Amount $100000 is added to Ali Mohamed account
+2024-09-13 02:30:00 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:30:00 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 02:30:13 +03:00 [INF] [INFO] Withdrawing $10000 from account number: 437359496
+2024-09-13 02:30:13 +03:00 [INF] [INFO] Withdrawal operation result:  $10000 is deducted from Ali Mohamed account
+2024-09-13 02:30:13 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:30:13 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 02:30:19 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-13 02:30:19 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-13 02:31:02 +03:00 [INF] change User to role 13/09/2024 02:31:02 ص with user Id 50e91d32-8852-49a2-8780-c7377985def9 
+2024-09-13 02:31:18 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-13 02:31:18 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-13 02:31:47 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 02:31:47 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 06:21:23 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-13 06:21:24 +03:00 [INF] [INFO] Retrieved 2 transactions
+2024-09-13 06:21:27 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 06:21:27 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 18:10:09 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 18:10:11 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 21:10:21 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 21:10:21 +03:00 [INF] [INFO] Retrieved 1 accounts
+2024-09-13 21:25:51 +03:00 [INF] [INFO] Creating account with ID: 0 and Account Number: 
+2024-09-13 21:25:52 +03:00 [INF] [INFO] Create operation result: Account created successfully
+2024-09-13 21:25:54 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 21:25:54 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-13 22:32:00 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-13 22:32:00 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-13 22:32:02 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-13 22:32:04 +03:00 [INF] [INFO] Retrieved 2 transactions

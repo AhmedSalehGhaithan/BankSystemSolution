@@ -1,0 +1,19 @@
+﻿@page "/authentication"
+@using Microsoft.AspNetCore.Components.Authorization
+@code {
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await _accountService.CreateAdminAtFirstStart();
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions if necessary
+            Console.Error.WriteLine($"Initialization failed: {ex.Message}");
+        }
+    }
+}

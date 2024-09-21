@@ -1,0 +1,34 @@
+﻿/* Custom styles for the login page */
+.card {
+    border-radius: 12px;
+}
+
+.card-header {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control-lg {
+    height: calc(2.5em + .75rem + 2px);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .375rem;
+}
+
+.btn-lg {
+    padding: .75rem 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .375rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,14 @@
+2024-09-15 16:43:59 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-15 16:44:05 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-15 16:44:09 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-15 16:44:09 +03:00 [INF] [INFO] Retrieved 3 transactions
+2024-09-15 16:44:35 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-15 16:44:35 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-15 16:44:40 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-15 16:44:40 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-15 16:44:57 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-15 16:44:57 +03:00 [INF] [INFO] Retrieved 3 transactions
+2024-09-15 16:49:21 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-15 16:49:21 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-15 17:27:37 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-15 17:27:37 +03:00 [INF] [INFO] Retrieved 2 accounts

@@ -1,0 +1,128 @@
+﻿@page "/transactions/deposit"
+@page "/transactions/deposit/{AccountNumber}"
+@inject IJSRuntime JSRuntime
+@attribute [Authorize(Roles = "User,Admin")]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-primary shadow-lg rounded">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Deposit Money</h2>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@transaction" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="form-group mb-4">
+                            <label for="accountNumber">Bank Account Number</label>
+                            <InputText id="accountNumber"
+                                       @bind-Value="transaction.BankAccountNumber"
+                                       class="form-control"
+                                       placeholder="Enter account number"
+                                       readonly="@IsAccountNumberReadOnly"
+                                       style="background-color: #f8f9fa;" />
+                            <ValidationMessage For="@(() => transaction.BankAccountNumber)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="amount">Amount</label>
+                            <InputNumber id="amount"
+                                         @bind-Value="transaction.Amount"
+                                         class="form-control"
+                                         placeholder="Enter amount"
+                                         style="border-color: #007bff;" />
+                            <ValidationMessage For="@(() => transaction.Amount)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="description">
+                                Description <span style="color: #6c757d; font-weight: normal;">(optional)</span>
+                            </label>
+                            <InputText id="description"
+                                       @bind-Value="transaction.Description"
+                                       class="form-control"
+                                       placeholder="Enter description"
+                                       style="border-color: #d0d0d0;" />
+                            <ValidationMessage For="@(() => transaction.Description)" />
+                        </div>
+
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Deposit</button>
+                            <button type="button" class="btn btn-secondary btn-lg ms-2" @onclick="Cancel">Cancel</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (message != null)
+{
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body text-center text-danger">
+                @message
+            </div>
+        </div>
+    </div>
+}
+
+<Footer />
+
+@code {
+    [Parameter] public string? AccountNumber { get; set; }
+    private Transaction transaction = new Transaction
+        {
+            TransactionType = "Deposit",
+            TransactionDate = DateTime.Now
+        };
+    private string? message;
+
+    private bool IsAccountNumberReadOnly => !string.IsNullOrEmpty(AccountNumber);
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(AccountNumber))
+        {
+            transaction.BankAccountNumber = AccountNumber;
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await _transactionService.DepositAsync(transaction);
+            if (response.Flag)
+            {
+                message = response.Message;
+              
+                transaction = new();
+                _navManager.NavigateTo("/bankAccounts/display/accounts");
+            }
+            else
+            {
+                message = $"Deposit failed: {response.Message}";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"An error occurred: {ex.Message}";
+        }
+    }
+
+    private async Task Cancel()
+    {
+        await JSRuntime.InvokeVoidAsync("navigateBack");
+    }
+
+}
+<script>
+    function navigateBack() {
+        window.history.back();
+    }
+</script>

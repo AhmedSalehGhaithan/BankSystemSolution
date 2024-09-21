@@ -1,0 +1,4 @@
+2024-09-16 09:07:57 +03:00 [INF] [INFO] Retrieving all accounts
+2024-09-16 09:07:57 +03:00 [INF] [INFO] Retrieved 2 accounts
+2024-09-16 09:07:59 +03:00 [INF] [INFO] Retrieving all transactions
+2024-09-16 09:07:59 +03:00 [INF] [INFO] Retrieved 3 transactions

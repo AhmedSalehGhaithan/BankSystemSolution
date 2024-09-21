@@ -1,0 +1,137 @@
+﻿@page "/administration/account/identity/add-user"
+
+@attribute [Authorize(Roles = "Admin")]
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.ComponentModel.DataAnnotations
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-primary shadow-lg rounded">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Register New User</h4>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="CreateAccountModel" OnValidSubmit="RegisterAsync">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="form-group mb-4">
+                            <label for="name">Name</label>
+                            <InputText id="name"
+                                       @bind-Value="CreateAccountModel.Name"
+                                       class="form-control"
+                                       placeholder="Ali mohamed" />
+                            <ValidationMessage For="@(() => CreateAccountModel.Name)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="emailAddress">Email Address</label>
+                            <InputText id="emailAddress"
+                                       @bind-Value="CreateAccountModel.EmailAddress"
+                                       class="form-control"
+                                       placeholder="Ali@gmail.com" />
+                            <ValidationMessage For="@(() => CreateAccountModel.EmailAddress)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="password">Password</label>
+                            <InputText id="password"
+                                       @bind-Value="CreateAccountModel.Password"
+                                       type="password"
+                                       class="form-control"
+                                       placeholder="********" />
+                            <ValidationMessage For="@(() => CreateAccountModel.Password)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <InputText id="confirmPassword"
+                                       @bind-Value="CreateAccountModel.ConfirmPassword"
+                                       type="password"
+                                       class="form-control"
+                                       placeholder="********" />
+                            <ValidationMessage For="@(() => CreateAccountModel.ConfirmPassword)" />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="role" class="form-label">Role</label>
+                            <InputSelect id="role" @bind-Value="CreateAccountModel.Role" class="form-select">
+                                <option value="" disabled selected>Select a role...</option>
+                                @if (AvailableRoles != null)
+                                {
+                                    @foreach (var role in AvailableRoles)
+                                    {
+                                        <option value="@role.Name">@role.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option disabled>Loading roles...</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CreateAccountModel.Role)" />
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button class="btn btn-primary btn-lg" type="submit">Register</button>
+                            <a href="@("administration/account/identity/users")" class="btn btn-secondary btn-lg ms-2">Back to Users</a>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="container mt-3">
+        <div class="alert alert-info text-center">
+            @Message
+        </div>
+    </div>
+}
+
+<Footer />
+
+@code {
+    public CreateAccount CreateAccountModel { get; set; } = new();
+    private string? Message { get; set; }
+    private IEnumerable<GetRole>? AvailableRoles { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            AvailableRoles = await _accountService.GetRolesAsync();
+        }
+        catch (Exception ex)
+        {
+            Message = $"Error loading roles: {ex.Message}";
+        }
+    }
+
+    private async Task RegisterAsync()
+    {
+        try
+        {
+            var response = await _accountService.RegisterAccountAsync(CreateAccountModel);
+
+            if (response.Flag)
+            {
+                Message = "User registered successfully";
+                CreateAccountModel = new(); // Reset the model for a new entry
+                _navManager.NavigateTo("administration/account/identity/users", true);
+            }
+            else
+            {
+                Message = response.Message;
+            }
+        }
+        catch
+        {
+            Message = "Sorry, an unknown error occurred.";
+        }
+    }
+}

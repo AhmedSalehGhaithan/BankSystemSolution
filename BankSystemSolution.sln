@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34407.89
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.SharedLibrarySolution", "BankSystem.SharedLibrarySolution\BankSystem.SharedLibrarySolution.csproj", "{0AEE1636-9CF3-4945-B879-2E6AEDEA8019}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BankSystemCleanArchitecture", "BankSystemCleanArchitecture", "{0076F28E-8455-4A62-A708-9C5FEAF63BA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedLibrary", "SharedLibrary", "{3C64B4B8-B826-4C0A-9169-EDB27A4B2803}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Infrastructure", "BankSystem.Infrastructure\BankSystem.Infrastructure.csproj", "{BF4B3FBE-2706-4E87-8157-5F5D192E5455}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Application", "BankSystem.Application\BankSystem.Application.csproj", "{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Domain", "BankSystem.Domain\BankSystem.Domain.csproj", "{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Presentation", "BankSystem.Presentation\BankSystem.Presentation.csproj", "{51A3BC06-9446-468B-AA2B-28A8EEF50DA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{8061C501-B4BC-4275-B7C0-CEC333D74BA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebApp", "BlazorWebApp\BlazorWebApp.csproj", "{24E6E41C-DEC0-471D-A1DA-963393135CFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AEE1636-9CF3-4945-B879-2E6AEDEA8019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AEE1636-9CF3-4945-B879-2E6AEDEA8019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AEE1636-9CF3-4945-B879-2E6AEDEA8019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AEE1636-9CF3-4945-B879-2E6AEDEA8019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4B3FBE-2706-4E87-8157-5F5D192E5455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4B3FBE-2706-4E87-8157-5F5D192E5455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4B3FBE-2706-4E87-8157-5F5D192E5455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4B3FBE-2706-4E87-8157-5F5D192E5455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A3BC06-9446-468B-AA2B-28A8EEF50DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A3BC06-9446-468B-AA2B-28A8EEF50DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A3BC06-9446-468B-AA2B-28A8EEF50DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A3BC06-9446-468B-AA2B-28A8EEF50DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E6E41C-DEC0-471D-A1DA-963393135CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E6E41C-DEC0-471D-A1DA-963393135CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E6E41C-DEC0-471D-A1DA-963393135CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E6E41C-DEC0-471D-A1DA-963393135CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0AEE1636-9CF3-4945-B879-2E6AEDEA8019} = {3C64B4B8-B826-4C0A-9169-EDB27A4B2803}
+		{BF4B3FBE-2706-4E87-8157-5F5D192E5455} = {0076F28E-8455-4A62-A708-9C5FEAF63BA7}
+		{BD247C1A-E86B-4596-AADE-2B5F8FCA67EB} = {0076F28E-8455-4A62-A708-9C5FEAF63BA7}
+		{2B093DFD-7B9A-4309-B33A-3CE081A8DD8D} = {0076F28E-8455-4A62-A708-9C5FEAF63BA7}
+		{51A3BC06-9446-468B-AA2B-28A8EEF50DA6} = {0076F28E-8455-4A62-A708-9C5FEAF63BA7}
+		{24E6E41C-DEC0-471D-A1DA-963393135CFB} = {8061C501-B4BC-4275-B7C0-CEC333D74BA7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C8EE652-3D65-4162-A3E3-3F797064F900}
+	EndGlobalSection
+EndGlobal
